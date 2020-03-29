@@ -1,0 +1,3 @@
+/Users/robertomarinheiro/CLionProjects/DataStructures/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/robertomarinheiro/CLionProjects/DataStructures/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/robertomarinheiro/CLionProjects/DataStructures/cmake-build-debug/CMakeFiles/test.dir
