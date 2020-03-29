@@ -90,7 +90,6 @@ void selection_sort(Array *array){
 
 // recursive binary search
 int recursive_binary_search(Array *array, int start, int end, int element){
-    printf("\nRecursive Binary Search");
     if(start > end) return -1;
     int mid = (start+end) / 2;
     if(array->array[mid] == element) return mid;
