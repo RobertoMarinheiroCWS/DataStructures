@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "include/array.h"
 #include "include/stack.h"
+#include "include/binary_tree.h"
 
 // Array
 // array creation
@@ -101,9 +102,9 @@ int recursive_binary_search(Array *array, int start, int end, int element){
         return recursive_binary_search(array, mid + 1, end, element);
 }
 
-// free array
-void free_array(Array *array){
-    printf("\nFree Array");
+// destroy array
+void destroy_array(Array *array){
+    printf("\nDestroy Array");
     free(array->array);
     free(array);
 }
@@ -118,7 +119,7 @@ void test_array(){
     randomize_array(array);
     selection_sort(array);
     printf("\nBinary Search -> Searching: %d Result: %d ", array->array[10], recursive_binary_search(array, 0, 99, array->array[10]));
-    free_array(array);
+    destroy_array(array);
 }
 
 // Stack
@@ -179,7 +180,7 @@ void reverse_stack(Stack *stack){
         push(aux, item);
     }
     print_stack(aux);
-    free_stack(aux);
+    destroy_stack(aux);
 }
 
 // print stack
@@ -198,8 +199,9 @@ void print_stack(Stack *stack){
     }
 }
 
-// free stack
-void free_stack(Stack *stack){
+// destroy stack
+void destroy_stack(Stack *stack){
+    printf("\nDestroy Stack");
     free(stack->stack);
     free(stack);
 }
@@ -214,12 +216,63 @@ void test_stack(){
     push(stack, 4);
     print_stack(stack);
     reverse_stack(stack);
-    free_stack;
+    destroy_stack;
+}
+
+// Binary Tree
+// create node
+Node *create_node(int value){
+    Node *node = (Node*)calloc(1, sizeof(Node));
+    node->value = value;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+// insert node
+void insert_node(Node *tree, int value){
+    if(tree->value == 0){
+        // insert in current position because is empty
+        tree->value = value;
+    }
+    else{
+        if (value < tree->value){
+            // insert left
+            if (tree->left != NULL){
+                insert_node(tree->left, value);
+            }
+            else{
+                tree->left = (Node *)calloc(1, sizeof(Node));
+                tree->left->value = value;
+                tree->left->left = NULL;
+                tree->left->right = NULL;
+            }
+        }
+        else{
+            if (value >= tree->value){
+                // insert right
+                if (tree->right != NULL){
+                    insert_node(tree->right, value);
+                }
+                else{
+                    tree->right = (Node *)calloc(1, sizeof(Node));
+                    tree->right->value = value;
+                    tree->right->left = NULL;
+                    tree->right->right = NULL;
+                }
+            }
+        }
+    }
+}
+
+// destroy binary tree
+void destroy_binary_tree(Node *tree){
+    if(tree->left) 
 }
 
 // Main
 int main() {
-    test_array();
+//    test_array();
 //    test_stack();
     return 0;
 }

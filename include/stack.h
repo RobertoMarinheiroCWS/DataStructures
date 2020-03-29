@@ -21,7 +21,7 @@ void push(Stack *stack, int item); // add item in stack
 int pop(Stack *stack); // remove item from stack
 void reverse_stack(Stack *stack); // reverse the stack
 void print_stack(Stack *stack); // print stack itens
-void free_stack(Stack *stack); // deallocate stack memory
+void destroy_stack(Stack *stack); // deallocate stack memory
 void test_stack(); // test stack functions
 
 #endif //DATA_STRUCTURES_STACK_H

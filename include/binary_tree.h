@@ -16,6 +16,8 @@ typedef struct _Node{
 typedef Node *binary_tree; // tree
 
 // Binary Tree Functions
-Node *createNode(int value);
+Node *create_node(int value); // allocate memory and return a tree
+void insert_node(Node *tree, int value); // insert node
+void destroy_binary_tree(Node *tree); // deallocate binary tree memory
 
 #endif //DATA_STRUCTURES_BINARY_TREE_H
