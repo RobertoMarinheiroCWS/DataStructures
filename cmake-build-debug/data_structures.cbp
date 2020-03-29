@@ -83,6 +83,9 @@
 		<Unit filename="/Users/robertomarinheiro/CLionProjects/DataStructures/include/array.h">
 			<Option target="test"/>
 		</Unit>
+		<Unit filename="/Users/robertomarinheiro/CLionProjects/DataStructures/include/binary_tree.h">
+			<Option target="test"/>
+		</Unit>
 		<Unit filename="/Users/robertomarinheiro/CLionProjects/DataStructures/include/stack.h">
 			<Option target="test"/>
 		</Unit>
