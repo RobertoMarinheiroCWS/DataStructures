@@ -88,6 +88,18 @@ void selection_sort(Array *array){
     print_array(array);
 }
 
+// recursive binary search
+int recursive_binary_search(Array *array, int start, int end, int element){
+    printf("\nRecursive Binary Search");
+    if(start > end) return -1;
+    int mid = (start+end) / 2;
+    if(array->array[mid] == element) return mid;
+    else if( element < array->array[mid])
+        recursive_binary_search(array, start, mid - 1, element);
+    else
+        recursive_binary_search(array, start, mid + 1, element);
+}
+
 // free array
 void free_array(Array *array){
     printf("\nFree Array");
@@ -103,7 +115,10 @@ void test_array(){
     bubble_sort(array);
     randomize_array(array);
     selection_sort(array);
-    free(array);
+    int search;
+    int pos = recursive_binary_search(array, 0, array->size, search);
+    printf("Position of %d in the array: %d", search, pos);
+    free_array(array);
 }
 
 // Stack
@@ -204,7 +219,7 @@ void test_stack(){
 
 // Main
 int main() {
-//    test_array();
-    test_stack();
+    test_array();
+//    test_stack();
     return 0;
 }
