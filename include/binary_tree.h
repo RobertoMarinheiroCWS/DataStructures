@@ -12,4 +12,10 @@ typedef struct _Node{
     struct _Node *right;
 }Node;
 
+// Binary Tree Definition
+typedef Node *binary_tree; // tree
+
+// Binary Tree Functions
+Node *createNode(int value);
+
 #endif //DATA_STRUCTURES_BINARY_TREE_H
