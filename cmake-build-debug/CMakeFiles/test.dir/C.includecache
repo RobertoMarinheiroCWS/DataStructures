@@ -8,6 +8,8 @@
 
 /Users/robertomarinheiro/CLionProjects/DataStructures/include/array.h
 
+/Users/robertomarinheiro/CLionProjects/DataStructures/include/binary_tree.h
+
 /Users/robertomarinheiro/CLionProjects/DataStructures/include/stack.h
 
 /Users/robertomarinheiro/CLionProjects/DataStructures/main.c
@@ -19,4 +21,6 @@ include/array.h
 /Users/robertomarinheiro/CLionProjects/DataStructures/include/array.h
 include/stack.h
 /Users/robertomarinheiro/CLionProjects/DataStructures/include/stack.h
+include/binary_tree.h
+/Users/robertomarinheiro/CLionProjects/DataStructures/include/binary_tree.h
 

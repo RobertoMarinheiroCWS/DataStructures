@@ -242,8 +242,7 @@ void insert_node(Node *tree, int value){
                 insert_node(tree->left, value);
             }
             else{
-                tree->left = (Node *)calloc(1, sizeof(Node));
-                tree->left->value = value;
+                tree->left = create_node(value);
                 tree->left->left = NULL;
                 tree->left->right = NULL;
             }
@@ -255,8 +254,7 @@ void insert_node(Node *tree, int value){
                     insert_node(tree->right, value);
                 }
                 else{
-                    tree->right = (Node *)calloc(1, sizeof(Node));
-                    tree->right->value = value;
+                    tree->right = create_node(value);
                     tree->right->left = NULL;
                     tree->right->right = NULL;
                 }
@@ -265,14 +263,85 @@ void insert_node(Node *tree, int value){
     }
 }
 
+// draw binary tree secondary
+void draw_binary_tree_secondary(Node *tree, int depth, char *path, int right){
+    if(tree== NULL){
+        return;
+    }
+    depth++; // increase spacing
+    draw_binary_tree_secondary(tree->right, depth, path, 1); // start with right node
+
+    if(depth > 1){
+        path[depth-2] = 0; // set | draw map
+        if(right)
+            path[depth-2] = 1;
+    }
+    if(tree->left)
+        path[depth-1] = 1;
+
+    printf("\n"); // print root after spacing
+
+    for(int i=0; i<depth-1; i++){
+        if(i == depth-2) printf("+");
+        else if(path[i]) printf("|");
+        else printf(" ");
+        for(int j=1; j<space; j++)
+            if(i < depth-2) printf(" ");
+            else printf("-");
+    }
+
+    printf("%d\n", tree->value);
+
+    for(int i=0; i<depth; i++){ // vertical spacers below
+        if(path[i]) printf("|");
+        else printf(" ");
+        for(int j=1; j<space; j++)
+            printf(" ");
+    }
+    draw_binary_tree_secondary(tree->left, depth, path, 0); // go to left node
+}
+
+// draw binary tree primary
+void draw_binary_tree_primary(Node *tree){
+    char path[255] = {};
+    draw_binary_tree_secondary(tree, 0, path, 0); //initial depth is 0
+}
+
 // destroy binary tree
 void destroy_binary_tree(Node *tree){
-    if(tree->left) 
+    if(tree){
+        destroy_binary_tree(tree->left);
+        destroy_binary_tree(tree->right);
+        free(tree);
+    }
+}
+
+// print binary tree elements in increasing order
+void print_elements_in_order_binary_tree(Node* node) {
+    if (node == NULL) return;
+    print_elements_in_order_binary_tree(node->left);
+    printf("%d ", node->value);
+    print_elements_in_order_binary_tree(node->right);
+}
+
+// test binary tree
+void test_binary_tree(){
+    Node *tree = create_node(5);
+    insert_node(tree, 2);
+    insert_node(tree, 3);
+    insert_node(tree, 1);
+    insert_node(tree, 7);
+    insert_node(tree, 8);
+    insert_node(tree, 6);
+    draw_binary_tree_primary(tree);
+    print_elements_in_order_binary_tree(tree);
+    destroy_binary_tree(tree);
 }
 
 // Main
 int main() {
 //    test_array();
 //    test_stack();
+    test_binary_tree();
     return 0;
 }
