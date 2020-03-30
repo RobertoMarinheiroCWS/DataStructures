@@ -19,6 +19,7 @@ typedef Node *binary_tree; // tree
 
 // Binary Tree Functions
 Node *create_node(int value); // allocate memory and return a tree
+Node *clone_node(Node *node); // clone node
 void insert_node(Node *tree, int value); // insert node
 void draw_binary_tree_secondary(Node *tree, int depth, char *path, int right); // test binary tree
 void draw_binary_tree_primary(Node *tree); // draw binary tree primary

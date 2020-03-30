@@ -229,6 +229,15 @@ Node *create_node(int value){
     return node;
 }
 
+// clone node
+Node *clone_node(Node *node){
+    Node *new = (Node*)calloc(1, sizeof(Node));
+    new->value = node->value;
+    new->left = node->left;
+    new->right = node->right;
+    return node;
+}
+
 // insert node
 void insert_node(Node *tree, int value){
     if(tree->value == 0){
@@ -392,16 +401,16 @@ void test_binary_tree(){
     Node *tree = create_node(5);
     insert_node(tree, 2);
     insert_node(tree, 3);
-    insert_node(tree, 1);
-    insert_node(tree, 7);
-    insert_node(tree, 8);
+    insert_node(tree, 4);
     insert_node(tree, 6);
     draw_binary_tree_primary(tree);
     print_tree(tree);
     print_post_order(tree);
     mirror_binary_tree(tree);
     draw_binary_tree_primary(tree);
-    delete_node(tree, 1);
+    delete_node(tree, 2);
+    delete_node(tree, 4);
+    delete_node(tree, 5);
     draw_binary_tree_primary(tree);
     destroy_binary_tree(tree);
 }
