@@ -339,6 +339,45 @@ void mirror_binary_tree(Node* node){
     }
 }
 
+// get the minimum node
+Node *get_min_value_node(Node* node){
+    Node *current = node;
+    while (current && current->left != NULL) // loop down to get the node at the extreme left
+        current = current->left;
+    return current;
+}
+
+// delete node @TODO -> Debug and Fix this shit
+Node *delete_node(Node* root, int value){
+    if(root == NULL) return root; // base case
+    // if value to be deleted is smaller than the root's value, then it is in the left subtree
+    if(value < root->value)
+        root->left = delete_node(root->left, value);
+    // if value to be deleted is greater than the root's value, then it is in the right subtree
+    else if(value > root->value)
+        root->right = delete_node(root->right, value);
+    // if value is same as root's value, then this is the node to be deleted
+    else{
+        if(!root->left){ // node with only one child or no child
+            Node *temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if(!root->right){
+            Node *temp = root->left;
+            free(root);
+            return temp;
+        }
+
+        Node *temp = get_min_value_node(root->right);
+
+        root->value = temp->value;
+
+        root->right = delete_node(root->right, temp->value);
+    }
+    return root;
+}
+
 // destroy binary tree
 void destroy_binary_tree(Node *tree){
     if(tree){
@@ -361,6 +400,8 @@ void test_binary_tree(){
     print_tree(tree);
     print_post_order(tree);
     mirror_binary_tree(tree);
+    draw_binary_tree_primary(tree);
+    delete_node(tree, 1);
     draw_binary_tree_primary(tree);
     destroy_binary_tree(tree);
 }

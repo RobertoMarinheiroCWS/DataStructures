@@ -26,6 +26,8 @@ void print_tree(Node *tree); // print binary tree elements in increasing order
 void test_binary_tree(); // tests binary tree functions
 void print_post_order(Node *tree); // print post order
 void mirror_binary_tree(Node* node); // mirror binary tree
+Node *get_min_value_node(Node* node); // get the minimum node
+Node *delete_node(Node *tree, int value); // delete node
 void destroy_binary_tree(Node *tree); // deallocate binary tree memory
 
 #endif //DATA_STRUCTURES_BINARY_TREE_H
