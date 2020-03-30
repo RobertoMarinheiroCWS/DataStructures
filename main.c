@@ -305,6 +305,38 @@ void draw_binary_tree_secondary(Node *tree, int depth, char *path, int right){
 void draw_binary_tree_primary(Node *tree){
     char path[255] = {};
     draw_binary_tree_secondary(tree, 0, path, 0); //initial depth is 0
+    printf("\n");
+}
+
+// print binary tree elements in increasing order
+void print_tree(Node* node) {
+    if (node == NULL) return;
+    print_tree(node->left);
+    printf("%d ", node->value);
+    print_tree(node->right);
+}
+
+// print post order
+void print_post_order(Node* node) {
+    printf("\nPrint Post order\n");
+    if (node == NULL) return;
+    print_tree(node->left); // first recur on both subtrees
+    print_tree(node->right);
+    printf("%d ", node->value); // then deal with the node
+}
+
+// mirror binary tree
+void mirror_binary_tree(Node* node){
+    if (node==NULL) return;
+    else{
+        struct node* temp;
+        mirror_binary_tree(node->left);
+        mirror_binary_tree(node->right);
+        // swap
+        temp = node->left;
+        node->left = node->right;
+        node->right = temp;
+    }
 }
 
 // destroy binary tree
@@ -314,14 +346,6 @@ void destroy_binary_tree(Node *tree){
         destroy_binary_tree(tree->right);
         free(tree);
     }
-}
-
-// print binary tree elements in increasing order
-void print_elements_in_order_binary_tree(Node* node) {
-    if (node == NULL) return;
-    print_elements_in_order_binary_tree(node->left);
-    printf("%d ", node->value);
-    print_elements_in_order_binary_tree(node->right);
 }
 
 // test binary tree
@@ -334,7 +358,10 @@ void test_binary_tree(){
     insert_node(tree, 8);
     insert_node(tree, 6);
     draw_binary_tree_primary(tree);
-    print_elements_in_order_binary_tree(tree);
+    print_tree(tree);
+    print_post_order(tree);
+    mirror_binary_tree(tree);
+    draw_binary_tree_primary(tree);
     destroy_binary_tree(tree);
 }
 
