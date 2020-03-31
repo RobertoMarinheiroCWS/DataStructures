@@ -239,33 +239,33 @@ Node *clone_node(Node *node){
 }
 
 // insert node
-void insert_node(Node *tree, int value){
-    if(tree->value == 0){
+void insert_node(Node *root, int value){
+    if(root->value == 0){
         // insert in current position because is empty
-        tree->value = value;
+        root->value = value;
     }
     else{
-        if (value < tree->value){
+        if (value < root->value){
             // insert left
-            if (tree->left != NULL){
-                insert_node(tree->left, value);
+            if (root->left != NULL){
+                insert_node(root->left, value);
             }
             else{
-                tree->left = create_node(value);
-                tree->left->left = NULL;
-                tree->left->right = NULL;
+                root->left = create_node(value);
+                root->left->left = NULL;
+                root->left->right = NULL;
             }
         }
         else{
-            if (value >= tree->value){
+            if (value >= root->value){
                 // insert right
-                if (tree->right != NULL){
-                    insert_node(tree->right, value);
+                if (root->right != NULL){
+                    insert_node(root->right, value);
                 }
                 else{
-                    tree->right = create_node(value);
-                    tree->right->left = NULL;
-                    tree->right->right = NULL;
+                    root->right = create_node(value);
+                    root->right->left = NULL;
+                    root->right->right = NULL;
                 }
             }
         }
@@ -273,19 +273,19 @@ void insert_node(Node *tree, int value){
 }
 
 // draw binary tree secondary
-void draw_binary_tree_secondary(Node *tree, int depth, char *path, int right){
-    if(tree== NULL){
+void draw_binary_tree_secondary(Node *root, int depth, char *path, int right){
+    if(root== NULL){
         return;
     }
     depth++; // increase spacing
-    draw_binary_tree_secondary(tree->right, depth, path, 1); // start with right node
+    draw_binary_tree_secondary(root->right, depth, path, 1); // start with right node
 
     if(depth > 1){
         path[depth-2] = 0; // set | draw map
         if(right)
             path[depth-2] = 1;
     }
-    if(tree->left)
+    if(root->left)
         path[depth-1] = 1;
 
     printf("\n"); // print root after spacing
@@ -299,7 +299,7 @@ void draw_binary_tree_secondary(Node *tree, int depth, char *path, int right){
             else printf("-");
     }
 
-    printf("%d\n", tree->value);
+    printf("%d\n", root->value);
 
     for(int i=0; i<depth; i++){ // vertical spacers below
         if(path[i]) printf("|");
@@ -307,13 +307,13 @@ void draw_binary_tree_secondary(Node *tree, int depth, char *path, int right){
         for(int j=1; j<space; j++)
             printf(" ");
     }
-    draw_binary_tree_secondary(tree->left, depth, path, 0); // go to left node
+    draw_binary_tree_secondary(root->left, depth, path, 0); // go to left node
 }
 
 // draw binary tree primary
-void draw_binary_tree_primary(Node *tree){
+void draw_binary_tree_primary(Node *root){
     char path[255] = {};
-    draw_binary_tree_secondary(tree, 0, path, 0); //initial depth is 0
+    draw_binary_tree_secondary(root, 0, path, 0); //initial depth is 0
     printf("\n");
 }
 
@@ -338,7 +338,7 @@ void print_post_order(Node* node) {
 void mirror_binary_tree(Node* node){
     if (node==NULL) return;
     else{
-        struct node* temp;
+        Node* temp;
         mirror_binary_tree(node->left);
         mirror_binary_tree(node->right);
         // swap
@@ -348,71 +348,32 @@ void mirror_binary_tree(Node* node){
     }
 }
 
-// get the minimum node
-Node *get_min_value_node(Node* node){
-    Node *current = node;
-    while (current && current->left != NULL) // loop down to get the node at the extreme left
-        current = current->left;
-    return current;
-}
-
-// delete node @TODO -> Debug and Fix this shit
-Node *delete_node(Node* root, int value){
-    if(root == NULL) return root; // base case
-    // if value to be deleted is smaller than the root's value, then it is in the left subtree
-    if(value < root->value)
-        root->left = delete_node(root->left, value);
-    // if value to be deleted is greater than the root's value, then it is in the right subtree
-    else if(value > root->value)
-        root->right = delete_node(root->right, value);
-    // if value is same as root's value, then this is the node to be deleted
-    else{
-        if(!root->left){ // node with only one child or no child
-            Node *temp = root->right;
-            free(root);
-            return temp;
-        }
-        else if(!root->right){
-            Node *temp = root->left;
-            free(root);
-            return temp;
-        }
-
-        Node *temp = get_min_value_node(root->right);
-
-        root->value = temp->value;
-
-        root->right = delete_node(root->right, temp->value);
-    }
-    return root;
-}
-
 // destroy binary tree
-void destroy_binary_tree(Node *tree){
-    if(tree){
-        destroy_binary_tree(tree->left);
-        destroy_binary_tree(tree->right);
-        free(tree);
+void destroy_binary_tree(Node *root){
+    if(root){
+        destroy_binary_tree(root->left);
+        destroy_binary_tree(root->right);
+        free(root);
     }
+}
+
+// destroy node
+void destroy_node(Node *node){
+    free(node);
 }
 
 // test binary tree
 void test_binary_tree(){
-    Node *tree = create_node(5);
-    insert_node(tree, 2);
-    insert_node(tree, 3);
-    insert_node(tree, 4);
-    insert_node(tree, 6);
-    draw_binary_tree_primary(tree);
-    print_tree(tree);
-    print_post_order(tree);
-    mirror_binary_tree(tree);
-    draw_binary_tree_primary(tree);
-    delete_node(tree, 2);
-    delete_node(tree, 4);
-    delete_node(tree, 5);
-    draw_binary_tree_primary(tree);
-    destroy_binary_tree(tree);
+    Node *root = create_node(5);
+    insert_node(root, 2);
+    insert_node(root, 3);
+    insert_node(root, 4);
+    insert_node(root, 6);
+    draw_binary_tree_primary(root);
+    print_post_order(root);
+    mirror_binary_tree(root);
+    draw_binary_tree_primary(root);
+    destroy_binary_tree(root);
 }
 
 // Main
